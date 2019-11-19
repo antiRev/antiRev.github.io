@@ -8,13 +8,20 @@
 			});
 			function addBus(item, index, arr) {
 				console.log(item);
-				$("#buses").append("<li>"+item.expected_departure_time+" ("+item.aimed_departure_time+")</li>");
+				if(item.expected_departure_time == null)
+				{
+					$("#buses").append("<li>"+item.aimed_departure_time+"</li>");
+				}
+				else
+				{
+					$("#buses").append("<li>"+item.expected_departure_time+" ("+item.aimed_departure_time+")</li>");
+				}
 			}
 		</script>
 		<style>
-html {font-size: 25px;}
+html {font-size: 32px;}
 p {font-size:120%}
-h1 {font-size:250%}
+h1 {font-size:150%}
 ul {line-height:200%}
 		</style>
 	</head>
