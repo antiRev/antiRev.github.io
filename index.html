@@ -2,7 +2,7 @@
 	<head>
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script>
-			$.get( "http://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
+			$.get( "https://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
 				console.log( response.departures["400"] ); // server response
 				response.departures["400"].forEach(addBus);
 			});
