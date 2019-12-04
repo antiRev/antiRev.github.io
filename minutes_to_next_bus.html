@@ -4,25 +4,29 @@
 		<script src="https://momentjs.com/downloads/moment.js"></script>
 		<script>
 		
-			$.get( "https://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
-				console.log( response );
-				if(response.departures)
-				{
-					console.log( response.departures ); // server response
-					if(response.departures["400"])
+			function bodyLoad()
+			{
+			
+				jQuery.ajaxSetup({async:false});
+				$.get( "https://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
+					console.log( response );
+					if(response.departures)
 					{
-						response.departures["400"].forEach(addBus);
-					}
-					else if(response.departures["400|park&ride"])
-					{
-						response.departures["400|park&ride"].forEach(addBus);
+						console.log( response.departures ); // server response
+						if(response.departures["400"])
+						{
+							response.departures["400"].forEach(addBus);
+						}
+						else if(response.departures["400|park&ride"])
+						{
+							response.departures["400|park&ride"].forEach(addBus);
+						}
 					}
 				}
+				).fail(function(x) {
+					$("#buses").append("<li>"+x.responseJSON.error+"</li>");
+				});
 			}
-			).fail(function(x) {
-				$("#buses").append("<li>"+x.responseJSON.error+"</li>");
-			});
-			
 			function bodyLoadTest()
 			{
 				var now = moment();
@@ -48,13 +52,13 @@
 					{
 						nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.expected_departure_time,"YYYY/MM/DDTHH:mm");
 					}
+					console.log(now);
+					console.log(nextBus);
 					if(nextBus != null)
 					{
-						console.log(now);
-						console.log(nextBus);
 						var duration = Math.floor(moment.duration(nextBus.diff(now)).asMinutes());
 						console.log(duration);
-						$("#buses").text(duration+" minutes");
+						$("body").text(duration+" minutes");
 					}
 				}
 			}
@@ -66,7 +70,7 @@ h1 {font-size:150%}
 ul {line-height:200%}
 		</style>
 	</head>
-	<body>
+	<body onload="bodyLoad()">
 		<h1 id="buses"></h1>
 	</body>
 </html>
