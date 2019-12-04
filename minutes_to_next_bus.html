@@ -3,7 +3,7 @@
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://momentjs.com/downloads/moment.js"></script>
 		<script>
-		/*
+		
 			$.get( "https://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
 				console.log( response );
 				if(response.departures)
@@ -22,7 +22,7 @@
 			).fail(function(x) {
 				$("#buses").append("<li>"+x.responseJSON.error+"</li>");
 			});
-			*/
+			
 			function bodyLoadTest()
 			{
 				var now = moment();
@@ -40,13 +40,19 @@
 				var nextBus = null;
 				if(item.expected_departure_time == null)
 				{
-					nextBus = moment(item.aimed_departure_time);
-					$("#buses").text("<li>"+item.aimed_departure_time+"</li>");
+					nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.aimed_departure_time,"YYYY/MM/DDTHH:mm");
 				}
 				else
 				{
-					nextBus = moment(item.expected_departure_time);
-					$("#buses").append("<li>"+item.expected_departure_time+" ("+item.aimed_departure_time+")</li>");
+					nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.expected_departure_time,"YYYY/MM/DDTHH:mm");
+				}
+				if(nextBus != null)
+				{
+					console.log(now);
+					console.log(nextBus);
+					var duration = Math.floor(moment.duration(nextBus.diff(now)).asMinutes());
+					console.log(duration);
+					$("#buses").text(duration+" minutes");
 				}
 			}
 		</script>
@@ -59,6 +65,5 @@ ul {line-height:200%}
 	</head>
 	<body onLoad="bodyLoadTest()">
 		<h1 id="buses">dsfsd</h1>
-		</ul>
 	</body>
 </html>
