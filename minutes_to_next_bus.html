@@ -35,24 +35,27 @@
 			}
 //			console.log(nextBus.subtract(now));
 			function addBus(item, index, arr) {
-				console.log(item);
-				var now = moment();
-				var nextBus = null;
-				if(item.expected_departure_time == null)
+				if (index == 0)
 				{
-					nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.aimed_departure_time,"YYYY/MM/DDTHH:mm");
-				}
-				else
-				{
-					nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.expected_departure_time,"YYYY/MM/DDTHH:mm");
-				}
-				if(nextBus != null)
-				{
-					console.log(now);
-					console.log(nextBus);
-					var duration = Math.floor(moment.duration(nextBus.diff(now)).asMinutes());
-					console.log(duration);
-					$("#buses").text(duration+" minutes");
+					console.log(item);
+					var now = moment();
+					var nextBus = null;
+					if(item.expected_departure_time == null)
+					{
+						nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.aimed_departure_time,"YYYY/MM/DDTHH:mm");
+					}
+					else
+					{
+						nextBus = moment(now.format("YYYY/MM/DD")+"T"+item.expected_departure_time,"YYYY/MM/DDTHH:mm");
+					}
+					if(nextBus != null)
+					{
+						console.log(now);
+						console.log(nextBus);
+						var duration = Math.floor(moment.duration(nextBus.diff(now)).asMinutes());
+						console.log(duration);
+						$("#buses").text(duration+" minutes");
+					}
 				}
 			}
 		</script>
