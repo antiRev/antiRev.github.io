@@ -57,6 +57,10 @@
 					if(nextBus != null)
 					{
 						var duration = Math.floor(moment.duration(nextBus.diff(now)).asMinutes());
+						if(duration <= 0)
+						{
+							duration="now";
+						}
 						console.log(duration);
 						$("body").text(duration+" minutes");
 					}
