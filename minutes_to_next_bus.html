@@ -3,10 +3,7 @@
 		<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 		<script src="https://momentjs.com/downloads/moment.js"></script>
 		<script>
-		
-			function bodyLoad()
-			{
-			
+			$( document ).ready(function() {
 				jQuery.ajaxSetup({async:false});
 				$.get( "https://transportapi.com/v3/uk/bus/stop/340001309BBV/live.json?app_id=30c96278&app_key=97c58efc5cd3050ca1071b66afc5773f", function( response ) {
 					console.log( response );
@@ -26,7 +23,7 @@
 				).fail(function(x) {
 					$("#buses").append("<li>"+x.responseJSON.error+"</li>");
 				});
-			}
+			});
 			function bodyLoadTest()
 			{
 				var now = moment();
@@ -74,7 +71,7 @@ h1 {font-size:150%}
 ul {line-height:200%}
 		</style>
 	</head>
-	<body onload="bodyLoad()">
+	<body>
 		<h1 id="buses"></h1>
 	</body>
 </html>
